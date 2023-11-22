@@ -1,0 +1,14 @@
+$spacing-data: (
+    none: 0,
+    extra-small:$space-unit *  .625,
+    base: $space-unit,
+    small: $space-unit * 1.25,
+    normal: $space-unit * 2,
+    wide: $space-unit * 3,
+    extra-side: $space-unit * 5,
+);
+
+@function spacing($variant){
+    $fetched-value: map-get($spacing-data , $variant);
+    @return $fetched-value;
+}
