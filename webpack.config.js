@@ -4,11 +4,15 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const path = require('path');
 
 module.exports = {
-  entry: './src/index.js',
+  entry:  {
+    'app':    './src/index.js',
+    'assets/js/banner': './src/assets/js/banner.js',
+  },
+
   output: {
     publicPath: '/',
     path: path.resolve(__dirname, './app'),
-    filename: 'index.js',
+    filename: '[name].js',
   },
 
 
@@ -24,6 +28,17 @@ module.exports = {
           "sass-loader",
 
         ],
+      },
+
+      {
+        test: /\.m?js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
       },
 
       {
@@ -71,6 +86,26 @@ module.exports = {
     new HtmlWebpackPlugin({
     template:"./index.html",
     filename: "index.html"
+  }),
+  new HtmlWebpackPlugin({
+    template:"./src/components/button.html",
+    filename: "components/button.html",
+    chunks: ['app']
+  }),
+  new HtmlWebpackPlugin({
+    template:"./src/components/textfield.html",
+    filename: "components/textfield.html",
+    chunks: ['app']
+  }),
+  new HtmlWebpackPlugin({
+    template:"./src/components/card.html",
+    filename: "components/card.html",
+    chunks: ['app']
+  }),
+  new HtmlWebpackPlugin({
+    template:"./src/components/banner.html",
+    filename: "components/banner.html",
+    chunks: ['app', 'assets/js/banner']
   }),
   new MiniCssExtractPlugin()
 ],
